@@ -21,7 +21,9 @@ public class Client {
 			System.exit(-1);
 		}
 		System.out.println("conectado");
-		int tel;
+		int numMes;
+		String idioma;
+		
 		BufferedReader teclado=new BufferedReader(new
 				InputStreamReader(System.in));
 		try {
@@ -31,16 +33,42 @@ public class Client {
 			DataInputStream entrada = new 
 					DataInputStream(skt.getInputStream());
 
-			tel=leerInt(teclado);
-			salida.writeInt(tel);
+			idioma = leerString(teclado);
+			salida.writeUTF(idioma);
 			salida.flush();
-			String n = entrada.readUTF();
-			System.out.println(""+n);
+			numMes=leerInt(teclado);
+			salida.writeInt(numMes);
+			salida.flush();
+			String nomeMes = entrada.readUTF();
+			System.out.println(""+nomeMes);
 			salida.close();
 			entrada.close();
 			skt.close();
 			System.exit(0);
 		}catch (IOException ex1) {ex1.printStackTrace(System.err);}
+	}
+	private static String leerString(BufferedReader buff) {
+		String lee = "";
+		boolean error;
+		System.out.println("idioma");
+		do {
+			error=false;
+			try {
+				lee = buff.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(lee.compareTo("gallego") != 0){
+				if(lee.compareTo("ingles") != 0){
+					System.err.println("Solo en ingles o gallego:?");
+					System.out.println("idioma");
+					error = true;
+				}
+			}
+			
+		}while (error);
+		return lee;
 	}
 	public static int leerInt(BufferedReader buff){
 		int lee=0;
