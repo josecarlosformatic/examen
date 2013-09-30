@@ -13,11 +13,11 @@ public class Client {
 	public static int PORT=1111;
 	public static String HOST="127.0.0.1";
 	public static void main(String[] args) {
-		System.err.println("Intentando conectar con el servido");
+		System.err.println("Intentando conectar con el servidor");
 		Socket skt=(Socket)null;
 		try {skt = new Socket(HOST, PORT);}
 		catch (Exception ex) {
-			System.err.println("La telefonista no está en línea");
+			System.err.println("El servidor no está en línea");
 			System.exit(-1);
 		}
 		System.out.println("conectado");
